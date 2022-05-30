@@ -17,6 +17,11 @@ function onInputAction(e) {
 
   function fetchCountries(name) {
     const fetchRef = `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`;
+    if (name === '') {
+      countryInfoBox.innerHTML = '';
+      countryInfoBox.innerHTML = '';
+      return;
+    }
     fetch(fetchRef)
       .then(response => {
         //console.log(response.json());
@@ -54,6 +59,7 @@ function onInputAction(e) {
           });
           countryListContainer.innerHTML = listArray.join('');
         }
+
         if (response[0].message === 'Page Not Found') {
           countryInfoBox.innerHTML = '';
           countryInfoBox.innerHTML = '';
@@ -72,20 +78,22 @@ function onInputAction(e) {
 
 function markUpList(name, flag) {
   return `<li class="coutry-item">
-        <img class="counry-flag" src="${flag}" alt="Country flag" width="40" />
+        <img class="country-flag" src="${flag}" alt="Country flag" width="40px" height="40px"/>
         <span>${name}</span>
     </li>`;
 }
 function markUpCard(capital, population, languages, flag, country) {
   return `
-          <div class="header-box">
-        <img src="${flag}" alt="Countre flag" width="40px" />
-        <h1>${country}</h1>
-      </div>
-      <ul>
-        <li><span>Capital: </span>${capital}</li>
-        <li><span>Population: </span>${population}</li>
-        <li><span>Languages: </span>${languages.join(', ')}</li>
-      </ul>
-    </div>`;
+        <div class="country-infobox">
+        <div class="headline-box">
+        <img class="country-flag" src="${flag}" alt="Country flag" width="40px" height="40px" />
+        <h2 class="country-name">${country}</h2>
+         </div>
+        <ul class="country-description">
+        <li><span class="description-category">Capital: </span>${capital}</li>
+        <li><span class="description-category">Population: </span>${population}</li>
+        <li><span class="description-category">Languages: </span>${languages.join(', ')}</li>
+        </ul>
+       </div>
+       </div>`;
 }
