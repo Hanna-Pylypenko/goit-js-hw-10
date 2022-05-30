@@ -25,5 +25,9 @@
     "posthtml-include": "^1.6.2",
     "sass": "^1.32.8"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/lodash.debounce": "^4.0.7",
+    "hbs": "^4.2.0",
+    "notiflix": "^3.2.5"
+  }
 }
