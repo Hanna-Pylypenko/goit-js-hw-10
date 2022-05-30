@@ -13,15 +13,16 @@ function onInputAction(e) {
   const nameWithSpaces = e.target.value;
   const name = nameWithSpaces.trim();
   console.log(name);
+  if (name === '') {
+    countryInfoBox.innerHTML = '';
+    countryInfoBox.innerHTML = '';
+    return;
+  }
   fetchCountries(name);
 
   function fetchCountries(name) {
     const fetchRef = `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`;
-    if (name === '') {
-      countryInfoBox.innerHTML = '';
-      countryInfoBox.innerHTML = '';
-      return;
-    }
+
     fetch(fetchRef)
       .then(response => {
         //console.log(response.json());
