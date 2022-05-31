@@ -1,7 +1,5 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
-// import { countryListContainer } from '/fetchCountries';
-// import { countryInfoBox } from '/fetchCountries';
 const countryListContainer = document.querySelector('.country-list');
 const countryInfoBox = document.querySelector('.country-info');
 const _ = require('lodash');
@@ -13,8 +11,8 @@ const countryInput = document.querySelector('#search-box');
 countryInput.addEventListener('input', _.debounce(onInputAction, DEBOUNCE_DELAY));
 
 function onInputAction(e) {
-  const nameWithSpaces = e.target.value;
-  const name = nameWithSpaces.trim();
+  const name = e.target.value.trim();
+
   console.log(name);
   if (name === '') {
     countryListContainer.innerHTML = '';
@@ -46,8 +44,7 @@ function countryRender(response) {
     const markup = markUpCard(capital, population, languages, flag, nameOfficial);
     console.log(markup);
     countryInfoBox.innerHTML = markup;
-  }
-  if (response.length <= 10 && response.length > 1) {
+  } else {
     countryInfoBox.innerHTML = '';
     const listArray = [];
     response.map(element => {
@@ -56,12 +53,6 @@ function countryRender(response) {
       listArray.push(markUpList(nameOfficial, flag));
     });
     countryListContainer.innerHTML = listArray.join('');
-  }
-
-  if (response[0].message === 'Page Not Found') {
-    countryListContainer.innerHTML = '';
-    countryInfoBox.innerHTML = '';
-    Notiflix.Notify.failure('');
   }
 }
 function errorRender(error) {
